@@ -1,0 +1,863 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ZUNO BOX — Mobile Sanitärlösungen</title>
+<link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --v: #b19ff4; --g: #2f2f36; --deep: #0d0d12;
+  --s: #1a1a22; --s2: #222230;
+  --t1: rgba(255,255,255,0.9); --t2: rgba(255,255,255,0.55); --t3: rgba(255,255,255,0.28);
+  --br: 10px;
+}
+body { font-family:'Comfortaa',sans-serif; background:var(--g); color:var(--t1); overflow-x:hidden; font-size:13px; line-height:1.7; }
+
+/* NAV */
+nav {
+  display:flex; justify-content:space-between; align-items:center;
+  padding:1rem 2.5rem; border-bottom:0.5px solid rgba(177,159,244,0.2);
+  position:sticky; top:0; background:rgba(47,47,54,0.97); backdrop-filter:blur(10px); z-index:200;
+}
+.nav-logo { display:flex; align-items:center; gap:10px; }
+.logo-blocks { display:flex; flex-direction:column; gap:3px; }
+.lb { width:20px; height:6px; border-radius:1px; background:var(--v); }
+.lb3 { position:relative; overflow:hidden; }
+.lb3::after { content:''; position:absolute; inset:0; background:repeating-linear-gradient(0deg,transparent,transparent 1px,rgba(255,255,255,0.5) 1px,rgba(255,255,255,0.5) 2px); background-size:100% 3px; }
+.logo-text { font-size:15px; font-weight:700; letter-spacing:0.12em; color:#fff; }
+.logo-text span { color:var(--v); }
+.nav-center { display:flex; gap:1.8rem; font-size:11px; letter-spacing:0.08em; color:var(--t2); }
+.nav-center a { color:inherit; text-decoration:none; cursor:pointer; transition:color 0.2s; }
+.nav-center a:hover { color:var(--v); }
+.nav-right { display:flex; align-items:center; gap:0.8rem; }
+.lang-switcher { display:flex; gap:3px; background:rgba(177,159,244,0.08); border:0.5px solid rgba(177,159,244,0.2); border-radius:6px; padding:3px; }
+.lang-btn { font-family:'Comfortaa',sans-serif; font-size:10px; font-weight:700; letter-spacing:0.08em; padding:4px 9px; border:none; border-radius:4px; cursor:pointer; background:transparent; color:var(--t2); transition:all 0.18s; }
+.lang-btn.active { background:var(--v); color:var(--g); }
+.nav-cta { background:var(--v); color:var(--g); font-family:'Comfortaa',sans-serif; font-size:11px; font-weight:700; padding:0.5rem 1rem; border:none; border-radius:5px; cursor:pointer; }
+.nav-cta:hover { opacity:0.85; }
+
+/* HERO */
+.hero-wrap { position:relative; overflow:hidden; min-height:88vh; display:flex; align-items:center; }
+.hero-bg {
+  position:absolute; inset:0; z-index:0;
+  background:linear-gradient(135deg,#111118 0%,#1e1a2e 40%,#2a2040 100%);
+}
+.hero-bg-placeholder {
+  position:absolute; inset:16px; border:2px dashed rgba(177,159,244,0.25); border-radius:12px;
+  display:flex; flex-direction:column; align-items:center; justify-content:center; gap:14px; z-index:0;
+}
+.hero-bg-placeholder svg { opacity:0.22; }
+.hero-bg-placeholder p { font-size:12px; letter-spacing:0.12em; text-transform:uppercase; color:rgba(177,159,244,0.4); text-align:center; line-height:1.9; }
+.hero-overlay { position:absolute; inset:0; background:linear-gradient(to right,rgba(10,8,18,0.9) 0%,rgba(10,8,18,0.72) 50%,rgba(10,8,18,0.18) 100%); z-index:1; }
+.hero-inner { position:relative; z-index:2; display:grid; grid-template-columns:1fr 1fr; align-items:center; padding:4rem 2.5rem; gap:2.5rem; max-width:1100px; margin:0 auto; width:100%; }
+.hero-tag { font-size:10px; letter-spacing:0.2em; color:var(--v); text-transform:uppercase; margin-bottom:0.9rem; }
+.hero-title { font-size:2.8rem; font-weight:700; line-height:1.08; margin-bottom:1rem; color:#fff; }
+.hero-title em { color:var(--v); font-style:normal; }
+.hero-body { font-size:13px; line-height:1.8; color:rgba(255,255,255,0.72); max-width:400px; margin-bottom:1.8rem; }
+.hero-actions { display:flex; gap:0.8rem; flex-wrap:wrap; }
+.btn-p { background:var(--v); color:var(--g); font-family:'Comfortaa',sans-serif; font-size:12px; font-weight:700; padding:0.65rem 1.5rem; border:none; border-radius:5px; cursor:pointer; }
+.btn-p:hover { opacity:0.85; }
+.btn-g { background:transparent; color:var(--v); font-family:'Comfortaa',sans-serif; font-size:12px; font-weight:600; padding:0.65rem 1.2rem; border:0.5px solid var(--v); border-radius:5px; cursor:pointer; }
+.btn-g:hover { background:rgba(177,159,244,0.08); }
+.hero-right { display:flex; flex-direction:column; gap:0.7rem; }
+.mini-card { background:rgba(26,26,34,0.88); border:0.5px solid rgba(177,159,244,0.18); border-radius:8px; padding:0.85rem 1.1rem; display:flex; align-items:center; gap:0.9rem; cursor:pointer; transition:border-color 0.2s; }
+.mini-card.top { border-color:var(--v); }
+.mini-card:hover { border-color:rgba(177,159,244,0.55); }
+.mini-icon { width:38px; height:38px; border-radius:6px; background:rgba(177,159,244,0.1); display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+.mini-info { flex:1; }
+.mini-name { font-size:13px; font-weight:700; color:#fff; }
+.mini-sub { font-size:10px; letter-spacing:0.1em; color:var(--v); text-transform:uppercase; }
+.mini-spec { font-size:10px; color:var(--t3); margin-top:2px; }
+.mini-badge { font-size:9px; font-weight:700; letter-spacing:0.1em; background:var(--v); color:var(--g); padding:2px 7px; border-radius:3px; text-transform:uppercase; white-space:nowrap; }
+
+.slogan-band { background:var(--v); padding:0.9rem 2.5rem; text-align:center; font-size:10px; letter-spacing:0.28em; font-weight:700; color:var(--g); text-transform:uppercase; }
+
+/* SECTION */
+.section { max-width:1100px; margin:0 auto; padding:3.5rem 2.5rem; }
+.sec-label { font-size:10px; letter-spacing:0.2em; color:var(--v); text-transform:uppercase; margin-bottom:0.6rem; }
+.sec-title { font-size:1.9rem; font-weight:700; line-height:1.15; margin-bottom:0.7rem; color:#fff; }
+.sec-title em { color:var(--v); font-style:normal; }
+.sec-body { font-size:13px; line-height:1.8; color:var(--t2); max-width:540px; margin-bottom:2.2rem; }
+
+/* PLACEHOLDER utility */
+.ph {
+  border-radius:var(--br); border:2px dashed rgba(177,159,244,0.28);
+  background:var(--s2); display:flex; flex-direction:column; align-items:center;
+  justify-content:center; gap:10px; text-align:center; padding:1.2rem;
+}
+.ph svg { opacity:0.4; }
+.ph-label { font-size:11px; letter-spacing:0.1em; text-transform:uppercase; line-height:1.7; color:rgba(177,159,244,0.45); }
+.ph-size { font-size:10px; color:rgba(177,159,244,0.28); margin-top:2px; }
+
+/* PRODUCTS */
+.products-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1.2rem; }
+.product-card { background:var(--s); border:0.5px solid rgba(177,159,244,0.15); border-radius:var(--br); cursor:pointer; transition:border-color 0.22s,transform 0.18s; position:relative; overflow:hidden; }
+.product-card:hover { border-color:var(--v); transform:translateY(-3px); }
+.product-card.feat { border-color:var(--v); }
+.feat-badge { position:absolute; top:0.8rem; right:0.8rem; background:var(--v); color:var(--g); font-size:9px; font-weight:700; letter-spacing:0.1em; padding:2px 7px; border-radius:3px; text-transform:uppercase; z-index:2; }
+/* tall portrait for shower products */
+.card-photo-portrait { width:100%; height:260px; background:linear-gradient(180deg,#181820 0%,#222232 100%); border-bottom:0.5px solid rgba(177,159,244,0.1); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:10px; border-top:2px dashed rgba(177,159,244,0.22); border-left:2px dashed rgba(177,159,244,0.22); border-right:2px dashed rgba(177,159,244,0.22); }
+.card-photo-portrait svg { opacity:0.35; }
+.card-photo-portrait .ph-label { font-size:10px; color:rgba(177,159,244,0.4); letter-spacing:0.08em; text-transform:uppercase; padding:0 0.8rem; line-height:1.6; }
+.card-photo-portrait .ph-size { font-size:9px; color:rgba(177,159,244,0.22); }
+/* landscape for box products */
+.card-photo-landscape { width:100%; height:160px; background:linear-gradient(180deg,#181820 0%,#222232 100%); border-bottom:0.5px solid rgba(177,159,244,0.1); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:8px; border-top:2px dashed rgba(177,159,244,0.22); border-left:2px dashed rgba(177,159,244,0.22); border-right:2px dashed rgba(177,159,244,0.22); }
+.card-photo-landscape svg { opacity:0.35; }
+.card-photo-landscape .ph-label { font-size:10px; color:rgba(177,159,244,0.4); letter-spacing:0.08em; text-transform:uppercase; padding:0 0.8rem; line-height:1.6; }
+.card-photo-landscape .ph-size { font-size:9px; color:rgba(177,159,244,0.22); }
+.card-body { padding:1.2rem 1.2rem 1.3rem; }
+.card-name { font-size:14px; font-weight:700; margin-bottom:1px; color:#fff; }
+.card-sub { font-size:10px; letter-spacing:0.1em; color:var(--v); text-transform:uppercase; margin-bottom:0.7rem; }
+.card-desc { font-size:12px; line-height:1.7; color:var(--t2); margin-bottom:0.9rem; }
+.card-specs { display:flex; flex-wrap:wrap; gap:4px; margin-bottom:0.9rem; }
+.cs { font-size:10px; padding:2px 7px; border-radius:3px; background:rgba(177,159,244,0.08); color:var(--v); border:0.5px solid rgba(177,159,244,0.2); }
+.card-link { font-size:11px; color:var(--v); cursor:pointer; text-decoration:none; }
+
+/* KM SECTION */
+.miete-bg { background:#13101a; border-top:0.5px solid rgba(177,159,244,0.12); border-bottom:0.5px solid rgba(177,159,244,0.12); }
+.km-grid { display:grid; grid-template-columns:1fr 1fr; gap:1.5rem; margin-bottom:2.5rem; }
+.km-card { background:var(--s); border:0.5px solid rgba(177,159,244,0.15); border-radius:var(--br); overflow:hidden; }
+.km-card.rec { border:1.5px solid var(--v); position:relative; }
+.km-top-badge { position:absolute; top:0; left:50%; transform:translateX(-50%); background:var(--v); color:var(--g); font-size:9px; font-weight:700; letter-spacing:0.1em; padding:3px 14px; border-radius:0 0 6px 6px; text-transform:uppercase; white-space:nowrap; z-index:2; }
+.km-photo { width:100%; height:200px; background:linear-gradient(180deg,#181820,#222232); border-bottom:0.5px solid rgba(177,159,244,0.1); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:10px; border-top:2px dashed rgba(177,159,244,0.22); border-left:2px dashed rgba(177,159,244,0.22); border-right:2px dashed rgba(177,159,244,0.22); }
+.km-photo svg { opacity:0.35; }
+.km-photo .ph-label { font-size:11px; color:rgba(177,159,244,0.4); letter-spacing:0.08em; text-transform:uppercase; text-align:center; padding:0 1rem; line-height:1.7; }
+.km-photo .ph-size { font-size:10px; color:rgba(177,159,244,0.25); }
+.km-body { padding:1.4rem; }
+.km-label-row { display:flex; align-items:center; gap:8px; margin-bottom:0.8rem; }
+.km-dot { width:8px; height:8px; border-radius:50%; background:var(--v); }
+.km-tag { font-size:10px; letter-spacing:0.15em; color:var(--v); text-transform:uppercase; }
+.km-title { font-size:15px; font-weight:700; margin-bottom:0.5rem; color:#fff; }
+.km-desc { font-size:12px; color:var(--t2); line-height:1.7; margin-bottom:1.1rem; }
+.km-feats { display:flex; flex-direction:column; gap:6px; margin-bottom:1.2rem; }
+.km-feat { font-size:12px; color:var(--t2); display:flex; align-items:flex-start; gap:8px; line-height:1.5; }
+.fi { width:14px; height:14px; min-width:14px; border-radius:50%; background:rgba(177,159,244,0.12); border:0.5px solid rgba(177,159,244,0.4); display:inline-flex; align-items:center; justify-content:center; margin-top:1px; flex-shrink:0; }
+
+/* STATS */
+.stats-row { display:grid; grid-template-columns:repeat(3,1fr); gap:1rem; margin:2rem 0; }
+.stat { background:var(--s); border:0.5px solid rgba(177,159,244,0.15); border-radius:var(--br); padding:1.2rem; text-align:center; }
+.stat-num { font-size:26px; font-weight:700; color:var(--v); }
+.stat-label { font-size:11px; color:var(--t2); margin-top:2px; }
+
+/* ABLAUF */
+.ablauf { display:grid; grid-template-columns:repeat(4,1fr); gap:0; margin-bottom:2.5rem; position:relative; }
+.ablauf::before { content:''; position:absolute; top:19px; left:12.5%; right:12.5%; height:0.5px; background:rgba(177,159,244,0.25); }
+.ab-step { text-align:center; padding:0 0.4rem; position:relative; z-index:1; }
+.ab-num { width:38px; height:38px; border-radius:50%; background:var(--g); border:1.5px solid var(--v); display:flex; align-items:center; justify-content:center; font-size:13px; font-weight:700; color:var(--v); margin:0 auto 0.7rem; }
+.ab-title { font-size:12px; font-weight:700; margin-bottom:0.25rem; color:#fff; }
+.ab-text { font-size:11px; color:var(--t2); line-height:1.6; }
+
+/* PAKETE */
+.pakete-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1rem; }
+.paket { background:var(--s); border:0.5px solid rgba(177,159,244,0.15); border-radius:var(--br); padding:1.6rem 1.3rem; position:relative; }
+.paket.rec { border-color:var(--v); }
+.rec-badge { position:absolute; top:-1px; left:50%; transform:translateX(-50%); background:var(--v); color:var(--g); font-size:9px; font-weight:700; letter-spacing:0.1em; padding:3px 12px; border-radius:0 0 6px 6px; text-transform:uppercase; white-space:nowrap; }
+.paket-name { font-size:14px; font-weight:700; margin-bottom:2px; color:#fff; }
+.paket-dur { font-size:10px; letter-spacing:0.12em; color:var(--v); text-transform:uppercase; margin-bottom:1.1rem; }
+.paket-feats { list-style:none; margin-bottom:1.4rem; display:flex; flex-direction:column; gap:6px; }
+.paket-feats li { font-size:12px; color:var(--t2); display:flex; align-items:flex-start; gap:8px; line-height:1.5; }
+.paket-cta { width:100%; background:transparent; color:var(--v); font-family:'Comfortaa',sans-serif; font-size:12px; font-weight:700; padding:0.6rem; border:0.5px solid var(--v); border-radius:5px; cursor:pointer; }
+.paket-cta:hover { background:rgba(177,159,244,0.08); }
+.paket.rec .paket-cta { background:var(--v); color:var(--g); }
+.miete-tags { display:flex; flex-wrap:wrap; gap:6px; margin-top:1.8rem; }
+.mt { font-size:11px; padding:5px 11px; border-radius:4px; background:rgba(177,159,244,0.07); color:rgba(255,255,255,0.6); border:0.5px solid rgba(177,159,244,0.18); }
+
+/* VALUES */
+.vals-bg { background:#161618; padding:3.5rem 0; }
+.vals-inner { max-width:1100px; margin:0 auto; padding:0 2.5rem; }
+.vals-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:1rem; margin-top:2rem; }
+.val { padding:1.2rem 1rem; border-left:2px solid var(--v); }
+.val-title { font-size:13px; font-weight:700; margin-bottom:0.35rem; color:#fff; }
+.val-text { font-size:11px; line-height:1.7; color:var(--t2); }
+
+/* USE CASES */
+.uses-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:1.2rem; }
+.use { background:var(--s); border:0.5px solid rgba(177,159,244,0.12); border-radius:var(--br); overflow:hidden; cursor:pointer; transition:border-color 0.2s; }
+.use:hover { border-color:rgba(177,159,244,0.38); }
+.use-photo { width:100%; height:180px; background:linear-gradient(180deg,#181820,#1e1a2e); border-bottom:0.5px solid rgba(177,159,244,0.1); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:10px; border-top:2px dashed rgba(177,159,244,0.22); border-left:2px dashed rgba(177,159,244,0.22); border-right:2px dashed rgba(177,159,244,0.22); }
+.use-photo svg { opacity:0.35; }
+.use-photo .ph-label { font-size:10px; color:rgba(177,159,244,0.4); letter-spacing:0.08em; text-transform:uppercase; text-align:center; padding:0 1rem; line-height:1.6; }
+.use-photo .ph-size { font-size:9px; color:rgba(177,159,244,0.22); }
+.use-body { padding:1.2rem; }
+.use-title { font-size:13px; font-weight:700; margin-bottom:0.3rem; color:#fff; }
+.use-text { font-size:11px; line-height:1.7; color:var(--t2); }
+
+/* CTA */
+.cta-sec { background:#13101a; border-top:0.5px solid rgba(177,159,244,0.18); border-bottom:0.5px solid rgba(177,159,244,0.18); padding:4.5rem 2.5rem; text-align:center; }
+.cta-title { font-size:2rem; font-weight:700; margin-bottom:0.8rem; color:#fff; }
+.cta-title em { color:var(--v); font-style:normal; }
+.cta-body { font-size:13px; color:var(--t2); max-width:420px; margin:0 auto 2rem; line-height:1.8; }
+.cta-acts { display:flex; gap:0.8rem; justify-content:center; flex-wrap:wrap; }
+
+footer { background:var(--deep); padding:1.8rem 2.5rem; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.8rem; }
+.foot-logo { font-size:12px; font-weight:700; letter-spacing:0.18em; color:var(--t3); }
+.foot-logo span { color:var(--v); }
+.foot-copy { font-size:11px; color:rgba(255,255,255,0.18); }
+
+/* SVG check icon inline */
+.chk { display:block; }
+
+/* RESPONSIVE */
+html { max-width:100%; overflow-x:hidden; }
+body { min-width:0; }
+button, a, svg { max-width:100%; }
+.section, .hero-inner, .vals-inner { width:100%; }
+.hero-title, .sec-title, .cta-title,
+.card-name, .km-title, .paket-name, .val-title, .use-title,
+.hero-body, .sec-body, .card-desc, .km-desc, .use-text, .cta-body,
+.ph-label, .slogan-band, .mini-spec, .stat-label, .foot-copy {
+  overflow-wrap:anywhere;
+}
+
+@media (max-width:1024px) {
+  nav {
+    padding:0.9rem 1.75rem;
+    gap:1rem;
+  }
+  .nav-center {
+    gap:1.05rem;
+    letter-spacing:0.04em;
+  }
+  .nav-right { gap:0.6rem; }
+  .nav-cta { padding:0.5rem 0.85rem; }
+
+  .hero-wrap {
+    min-height:auto;
+    align-items:stretch;
+  }
+  .hero-inner {
+    grid-template-columns:1.05fr 0.95fr;
+    padding:4rem 1.75rem;
+    gap:1.75rem;
+  }
+  .hero-title { font-size:clamp(2.2rem, 5vw, 2.8rem); }
+
+  .section {
+    padding:3.25rem 1.75rem;
+  }
+  .vals-inner { padding:0 1.75rem; }
+  .products-grid {
+    grid-template-columns:repeat(2,minmax(0,1fr));
+  }
+  .products-grid .product-card:last-child {
+    grid-column:1 / -1;
+    min-height:230px;
+  }
+  .vals-grid {
+    grid-template-columns:repeat(2,minmax(0,1fr));
+  }
+  .pakete-grid {
+    grid-template-columns:repeat(3,minmax(0,1fr));
+  }
+  .paket {
+    padding:1.45rem 1.05rem;
+  }
+  .slogan-band {
+    padding:0.85rem 1.75rem;
+    letter-spacing:0.18em;
+  }
+}
+
+@media (max-width:768px) {
+  nav {
+    position:sticky;
+    flex-wrap:wrap;
+    align-items:center;
+    padding:0.85rem 1.25rem;
+  }
+  .nav-logo {
+    flex:1 1 auto;
+    min-width:150px;
+  }
+  .nav-right {
+    justify-content:flex-end;
+    flex:0 1 auto;
+  }
+  .nav-center {
+    order:3;
+    width:100%;
+    justify-content:center;
+    flex-wrap:wrap;
+    gap:0.45rem 0.9rem;
+    padding-top:0.7rem;
+    font-size:10px;
+    letter-spacing:0.04em;
+  }
+  .nav-center a {
+    padding:0.25rem 0;
+  }
+
+  .hero-wrap { min-height:auto; }
+  .hero-inner {
+    grid-template-columns:1fr;
+    padding:3.25rem 1.25rem 2.75rem;
+    gap:1.5rem;
+  }
+  .hero-overlay {
+    background:linear-gradient(to bottom,rgba(10,8,18,0.9) 0%,rgba(10,8,18,0.75) 58%,rgba(10,8,18,0.5) 100%);
+  }
+  .hero-bg-placeholder {
+    inset:10px;
+  }
+  .hero-bg-placeholder p {
+    font-size:10px;
+    letter-spacing:0.07em;
+    padding:0 1rem;
+  }
+  .hero-title {
+    font-size:clamp(2rem, 8vw, 2.55rem);
+  }
+  .hero-body {
+    max-width:100%;
+  }
+  .hero-right {
+    display:grid;
+    grid-template-columns:1fr;
+  }
+  .mini-card {
+    align-items:flex-start;
+  }
+
+  .section {
+    padding:2.8rem 1.25rem;
+  }
+  .vals-bg {
+    padding:2.8rem 0;
+  }
+  .vals-inner {
+    padding:0 1.25rem;
+  }
+  .sec-title {
+    font-size:clamp(1.55rem, 5vw, 1.9rem);
+  }
+  .sec-body {
+    max-width:100%;
+    margin-bottom:1.6rem;
+  }
+  .slogan-band {
+    padding:0.75rem 1.25rem;
+    font-size:9px;
+    letter-spacing:0.1em;
+    line-height:1.6;
+  }
+
+  .products-grid,
+  .km-grid,
+  .pakete-grid,
+  .uses-grid {
+    grid-template-columns:1fr;
+    gap:1rem;
+  }
+  .products-grid .product-card:last-child {
+    grid-column:auto;
+  }
+  .stats-row,
+  .vals-grid {
+    grid-template-columns:repeat(2,minmax(0,1fr));
+  }
+  .card-photo-portrait {
+    height:clamp(210px, 48vw, 260px);
+  }
+  .card-photo-landscape,
+  .km-photo,
+  .use-photo {
+    height:clamp(150px, 38vw, 200px);
+  }
+
+  .ablauf {
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:1rem;
+  }
+  .ablauf::before {
+    display:none;
+  }
+  .ab-step {
+    background:rgba(177,159,244,0.05);
+    border:0.5px solid rgba(177,159,244,0.13);
+    border-radius:var(--br);
+    padding:1rem;
+  }
+  .ab-num {
+    margin-bottom:0.55rem;
+  }
+
+  .cta-sec {
+    padding:3.25rem 1.25rem;
+  }
+  .cta-title {
+    font-size:clamp(1.8rem, 7vw, 2rem);
+  }
+  footer {
+    padding:1.5rem 1.25rem;
+    justify-content:center;
+    text-align:center;
+  }
+}
+
+@media (max-width:560px) {
+  body {
+    font-size:12px;
+  }
+  nav {
+    padding:0.75rem 1rem;
+    gap:0.7rem;
+  }
+  .logo-text {
+    font-size:13px;
+    letter-spacing:0.08em;
+  }
+  .lb {
+    width:18px;
+    height:5px;
+  }
+  .nav-logo {
+    min-width:120px;
+  }
+  .nav-right {
+    width:100%;
+    justify-content:space-between;
+    gap:0.6rem;
+  }
+  .lang-switcher {
+    flex:0 0 auto;
+  }
+  .lang-btn {
+    padding:4px 8px;
+  }
+  .nav-cta {
+    flex:1 1 auto;
+    min-width:0;
+    padding:0.55rem 0.7rem;
+  }
+  .nav-center {
+    justify-content:flex-start;
+    gap:0.35rem 0.7rem;
+    font-size:9.5px;
+  }
+
+  .hero-inner {
+    padding:2.65rem 1rem 2.25rem;
+  }
+  .hero-tag,
+  .sec-label,
+  .km-tag,
+  .card-sub,
+  .paket-dur,
+  .mini-sub {
+    letter-spacing:0.1em;
+  }
+  .hero-title {
+    font-size:clamp(1.8rem, 10vw, 2.25rem);
+    line-height:1.12;
+  }
+  .hero-actions,
+  .cta-acts {
+    flex-direction:column;
+  }
+  .btn-p,
+  .btn-g,
+  .paket-cta {
+    width:100%;
+    min-height:42px;
+  }
+  .mini-card {
+    padding:0.85rem;
+    gap:0.7rem;
+  }
+  .mini-icon {
+    width:34px;
+    height:34px;
+  }
+  .mini-badge,
+  .feat-badge,
+  .km-top-badge,
+  .rec-badge {
+    letter-spacing:0.04em;
+  }
+
+  .section {
+    padding:2.35rem 1rem;
+  }
+  .vals-inner {
+    padding:0 1rem;
+  }
+  .vals-bg {
+    padding:2.35rem 0;
+  }
+  .products-grid,
+  .km-grid,
+  .stats-row,
+  .ablauf,
+  .pakete-grid,
+  .vals-grid,
+  .uses-grid {
+    grid-template-columns:1fr;
+  }
+  .card-body,
+  .km-body,
+  .use-body {
+    padding:1rem;
+  }
+  .paket {
+    padding:1.45rem 1rem 1.1rem;
+  }
+  .stat {
+    padding:1rem;
+  }
+  .stat-num {
+    font-size:22px;
+  }
+  .miete-tags {
+    gap:5px;
+  }
+  .mt,
+  .cs {
+    max-width:100%;
+  }
+  .val {
+    padding:1rem 0 1rem 0.9rem;
+  }
+  .cta-sec {
+    padding:2.8rem 1rem;
+  }
+  footer {
+    padding:1.35rem 1rem;
+    flex-direction:column;
+  }
+}
+
+@media (max-width:380px) {
+  .nav-center {
+    font-size:9px;
+    gap:0.25rem 0.55rem;
+  }
+  .nav-cta,
+  .btn-p,
+  .btn-g,
+  .paket-cta {
+    font-size:11px;
+  }
+  .lang-btn {
+    font-size:9px;
+    padding:4px 7px;
+  }
+  .hero-bg-placeholder p,
+  .ph-label {
+    font-size:9px;
+    letter-spacing:0.04em;
+  }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">
+    <div class="logo-blocks"><div class="lb"></div><div class="lb"></div><div class="lb lb3"></div></div>
+    <div class="logo-text">ZUNO <span>BOX</span></div>
+  </div>
+  <div class="nav-center">
+    <a onclick="scroll2('prods')" data-k="nav_prods">Produkte</a>
+    <a onclick="scroll2('kaufmiete')" data-k="nav_km">Kaufen &amp; Mieten</a>
+    <a onclick="scroll2('uses')" data-k="nav_uses">Einsatzbereiche</a>
+    <a onclick="scroll2('cta')" data-k="nav_contact">Kontakt</a>
+  </div>
+  <div class="nav-right">
+    <div class="lang-switcher">
+      <button class="lang-btn active" onclick="setLang('de')">DE</button>
+      <button class="lang-btn" onclick="setLang('en')">EN</button>
+      <button class="lang-btn" onclick="setLang('es')">ES</button>
+    </div>
+    <button class="nav-cta" data-k="nav_cta">Anfrage stellen</button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero-wrap">
+  <div class="hero-bg">
+    <div class="hero-bg-placeholder">
+      <svg width="52" height="52" viewBox="0 0 52 52" fill="none">
+        <rect x="4" y="10" width="44" height="34" rx="4" stroke="#b19ff4" stroke-width="1.2"/>
+        <circle cx="20" cy="26" r="7" stroke="#b19ff4" stroke-width="1.2"/>
+        <path d="M4 40 L16 28 L26 36 L36 24 L48 40" stroke="#b19ff4" stroke-width="1.2" fill="none"/>
+      </svg>
+      <p data-k="ph_hero_bg">Hintergrundfoto: mehrere Washboxen im professionellen Umfeld<br>z.B. Baustelle, Sanierung oder Eventgelände<br>Format: 1440 × 900 px · landscape</p>
+    </div>
+  </div>
+  <div class="hero-overlay"></div>
+  <div class="hero-inner">
+    <div>
+      <div class="hero-tag" data-k="hero_tag">ZUNO Global · Produktlinie Box · 2025</div>
+      <h1 class="hero-title">
+        <span data-k="hero_t1">Mobile Sanitär</span><br>
+        <span data-k="hero_t2">lösungen.</span><br>
+        <em data-k="hero_t3">Überall einsatzbereit.</em>
+      </h1>
+      <p class="hero-body" data-k="hero_body">Modulare und transportable Systeme aus Bayern. Kaufen für dauerhafte Nutzung oder mieten für temporären Bedarf, flexibel, schnell verfügbar, hygienisch ab Werk.</p>
+      <div class="hero-actions">
+        <button class="btn-p" data-k="hero_b1">Katalog ansehen</button>
+        <button class="btn-g" onclick="scroll2('kaufmiete')" data-k="hero_b2">Kaufen &amp; Mieten</button>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="mini-card top">
+        <div class="mini-icon"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><rect x="4" y="1" width="10" height="16" rx="3" stroke="#b19ff4" stroke-width="0.8"/><line x1="6" y1="6" x2="12" y2="6" stroke="#b19ff4" stroke-width="0.6" stroke-dasharray="1.5 1.5"/><circle cx="9" cy="14" r="1.5" fill="#b19ff4" opacity="0.6"/></svg></div>
+        <div class="mini-info"><div class="mini-name">Washbox</div><div class="mini-sub" data-k="p1s">Mobile Dusche</div><div class="mini-spec">75–95 cm · 199 cm · Made in Germany</div></div>
+        <div class="mini-badge">Top</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="slogan-band" data-k="slogan">BESSER LEBEN · KAUFEN ODER MIETEN · MOBILE SANITÄRLÖSUNGEN AUS DEUTSCHLAND</div>
+
+<!-- PRODUKTE -->
+<div class="section" id="prods">
+  <div class="sec-label" data-k="prods_label">Produktübersicht</div>
+  <h2 class="sec-title" data-k="prods_title">Modulare Systeme für jeden Bedarf.</h2>
+  <p class="sec-body" data-k="prods_body">Jedes ZUNO BOX Produkt wird in eigener Fertigung in Aindling, Bayern hergestellt. Sofort einsatzbereit, desinfiziert und hygienisch sauber, ob zum Kauf oder zur Miete.</p>
+  <div class="products-grid">
+
+    <div class="product-card feat">
+      <div class="feat-badge">Flagship</div>
+      <div class="card-photo-portrait">
+        <svg width="32" height="32" viewBox="0 0 32 32" fill="none"><rect x="9" y="1" width="14" height="30" rx="4" stroke="#b19ff4" stroke-width="1"/><line x1="11" y1="9" x2="21" y2="9" stroke="#b19ff4" stroke-width="0.7" stroke-dasharray="2 2"/><line x1="11" y1="14" x2="21" y2="14" stroke="#b19ff4" stroke-width="0.7" stroke-dasharray="2 2"/><circle cx="16" cy="25" r="2.5" fill="#b19ff4" opacity="0.4"/></svg>
+        <div class="ph-label" data-k="ph_washbox">Produktfoto Washbox<br>hochformat · stehend</div>
+        <div class="ph-size">400 × 700 px · portrait</div>
+      </div>
+      <div class="card-body">
+        <div class="card-name">Washbox</div><div class="card-sub" data-k="p1s">Mobile Dusche</div>
+        <p class="card-desc" data-k="p1d">Zylindrische Dusche mit Thermostatarmatur, Vorhang und pannensicheren Rädern. Treppenrollis inklusive.</p>
+        <div class="card-specs"><span class="cs">75–95 cm</span><span class="cs">199 cm</span><span class="cs">Made in Germany</span></div>
+        <a class="card-link" data-k="card_cta">Kaufen &amp; Mieten →</a>
+      </div>
+    </div>
+
+    <div class="product-card">
+      <div class="card-photo-portrait">
+        <svg width="32" height="32" viewBox="0 0 32 32" fill="none"><rect x="4" y="12" width="24" height="16" rx="8" stroke="#b19ff4" stroke-width="1" fill="none"/><rect x="13" y="16" width="6" height="6" rx="1.5" fill="rgba(177,159,244,0.35)"/><line x1="16" y1="12" x2="16" y2="6" stroke="#b19ff4" stroke-width="1"/></svg>
+        <div class="ph-label" data-k="ph_seatbox">Produktfoto Seatbox<br>hochformat · stehend</div>
+        <div class="ph-size">400 × 700 px · portrait</div>
+      </div>
+      <div class="card-body">
+        <div class="card-name">Seatbox</div><div class="card-sub" data-k="p2s">Mobile Sitzdusche</div>
+        <p class="card-desc" data-k="p2d">Barrierefrei mit breitem Einstieg und ergonomischem Sitz. Transfer aus dem Rollstuhl einfach möglich.</p>
+        <div class="card-specs"><span class="cs">79 cm</span><span class="cs">Einstieg 71 cm</span><span class="cs">52 kg</span></div>
+        <a class="card-link" data-k="card_cta">Kaufen &amp; Mieten →</a>
+      </div>
+    </div>
+
+
+    <div class="product-card" style="display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;border-color:rgba(177,159,244,0.22);padding:2rem;">
+      <div style="width:56px;height:56px;border-radius:50%;background:rgba(177,159,244,0.1);display:flex;align-items:center;justify-content:center;margin:0 auto 1rem;">
+        <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><line x1="11" y1="3" x2="11" y2="19" stroke="#b19ff4" stroke-width="1.4"/><line x1="3" y1="11" x2="19" y2="11" stroke="#b19ff4" stroke-width="1.4"/></svg>
+      </div>
+      <div class="card-name" style="margin-bottom:0.5rem;" data-k="custom_t">Sonderanfertigungen</div>
+      <p class="card-desc" data-k="custom_d">Individuelle Farbgebung, Abmessungen und Design nach Ihren Vorgaben. Deutsches Ingenieurwesen.</p>
+      <a class="card-link" data-k="custom_cta">Anfrage stellen →</a>
+    </div>
+
+  </div>
+</div>
+
+<!-- KAUFEN & MIETEN -->
+<div class="miete-bg" id="kaufmiete">
+  <div class="section">
+    <div class="sec-label" data-k="km_label">Kaufen &amp; Mieten</div>
+    <h2 class="sec-title" data-k="km_title">Ihr Weg zu ZUNO BOX.</h2>
+    <p class="sec-body" data-k="km_body">Ob dauerhafter Kauf oder flexible Miete, wir passen uns Ihrem Bedarf an. Lieferung und Beratung auf Anfrage.</p>
+    <div class="km-grid">
+      <div class="km-card">
+        <div class="km-photo">
+          <svg width="36" height="36" viewBox="0 0 36 36" fill="none"><path d="M8 4L4 9v20a3 3 0 003 3h22a3 3 0 003-3V9l-4-5z" stroke="#b19ff4" stroke-width="1" fill="none"/><line x1="4" y1="9" x2="32" y2="9" stroke="#b19ff4" stroke-width="1"/><path d="M22 15a4 4 0 01-8 0" stroke="#b19ff4" stroke-width="1" fill="none"/></svg>
+          <div class="ph-label" data-k="ph_kauf">Foto: Produkt beim Kunden<br>dauerhafte Installation<br>z.B. im Bad oder Kellerraum</div>
+          <div class="ph-size">800 × 500 px · landscape</div>
+        </div>
+        <div class="km-body">
+          <div class="km-label-row"><div class="km-dot"></div><span class="km-tag" data-k="buy_tag">Kaufen</span></div>
+          <div class="km-title" data-k="buy_title">Dauerhaft. Ihr Eigentum.</div>
+          <p class="km-desc" data-k="buy_desc">Ideal für Unternehmen und Privatkunden mit regelmäßigem Bedarf. Einmalige Investition, langfristiger Nutzen.</p>
+          <div class="km-feats">
+            <div class="km-feat"><span class="fi"><svg width="8" height="8" viewBox="0 0 8 8" fill="none"><path d="M1.5 4 L3.5 6 L6.5 2" stroke="#b19ff4" stroke-width="1.2"/></svg></span><span data-k="bf1">Individuelle Beratung vor dem Kauf</span></div>
+            <div class="km-feat"><span class="fi"><svg width="8" height="8" viewBox="0 0 8 8" fill="none"><path d="M1.5 4 L3.5 6 L6.5 2" stroke="#b19ff4" stroke-width="1.2"/></svg></span><span data-k="bf2">Lieferung auf Anfrage</span></div>
+            <div class="km-feat"><span class="fi"><svg width="8" height="8" viewBox="0 0 8 8" fill="none"><path d="M1.5 4 L3.5 6 L6.5 2" stroke="#b19ff4" stroke-width="1.2"/></svg></span><span data-k="bf3">Sonderfarben &amp; Maßanfertigungen möglich</span></div>
+            <div class="km-feat"><span class="fi"><svg width="8" height="8" viewBox="0 0 8 8" fill="none"><path d="M1.5 4 L3.5 6 L6.5 2" stroke="#b19ff4" stroke-width="1.2"/></svg></span><span data-k="bf4">Europäischer Kundendienst</span></div>
+          </div>
+          <button class="btn-p" style="width:100%;" data-k="buy_cta">Kaufangebot anfragen</button>
+        </div>
+      </div>
+      <div class="km-card rec">
+        <div class="km-top-badge" data-k="rent_badge">Neu: Mietservice</div>
+        <div class="km-photo" style="margin-top:0;">
+          <svg width="36" height="36" viewBox="0 0 36 36" fill="none"><rect x="4" y="6" width="28" height="24" rx="3" stroke="#b19ff4" stroke-width="1" fill="none"/><path d="M12 6V3M24 6V3" stroke="#b19ff4" stroke-width="1"/><line x1="4" y1="13" x2="32" y2="13" stroke="#b19ff4" stroke-width="1"/><circle cx="12" cy="22" r="2" fill="#b19ff4" opacity="0.5"/><circle cx="18" cy="22" r="2" fill="#b19ff4" opacity="0.5"/><circle cx="24" cy="22" r="2" fill="#b19ff4" opacity="0.5"/></svg>
+          <div class="ph-label" data-k="ph_miete">Foto: Lieferung und Aufbau<br>durch unser Team vor Ort<br>z.B. Eingang Wohngebäude</div>
+          <div class="ph-size">800 × 500 px · landscape</div>
+        </div>
+        <div class="km-body">
+          <div class="km-label-row"><div class="km-dot"></div><span class="km-tag" data-k="rent_tag">Mieten</span></div>
+          <div class="km-title" data-k="rent_title">Flexibel. Ohne Investition.</div>
+          <p class="km-desc" data-k="rent_desc">Ideal für temporäre Projekte, Badsanierungen oder Events. Lieferung und Abholung durch unser Team.</p>
+          <div class="km-feats">
+            <div class="km-feat"><span class="fi"><svg width="8" height="8" viewBox="0 0 8 8" fill="none"><path d="M1.5 4 L3.5 6 L6.5 2" stroke="#b19ff4" stroke-width="1.2"/></svg></span><span data-k="rf1">Kurzmiete ab 1 Tag</span></div>
+            <div class="km-feat"><span class="fi"><svg width="8" height="8" viewBox="0 0 8 8" fill="none"><path d="M1.5 4 L3.5 6 L6.5 2" stroke="#b19ff4" stroke-width="1.2"/></svg></span><span data-k="rf2">Angebot innerhalb von 24 Stunden</span></div>
+            <div class="km-feat"><span class="fi"><svg width="8" height="8" viewBox="0 0 8 8" fill="none"><path d="M1.5 4 L3.5 6 L6.5 2" stroke="#b19ff4" stroke-width="1.2"/></svg></span><span data-k="rf3">Desinfiziert &amp; einsatzbereit</span></div>
+            <div class="km-feat"><span class="fi"><svg width="8" height="8" viewBox="0 0 8 8" fill="none"><path d="M1.5 4 L3.5 6 L6.5 2" stroke="#b19ff4" stroke-width="1.2"/></svg></span><span data-k="rf4">Pünktliche Abholung nach Mietende</span></div>
+          </div>
+          <button class="btn-p" style="width:100%;" data-k="rent_cta">Mietangebot anfragen</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="stats-row">
+      <div class="stat"><div class="stat-num">48h</div><div class="stat-label" data-k="s1">Lieferbereit ab Anfrage</div></div>
+      <div class="stat"><div class="stat-num">100%</div><div class="stat-label" data-k="s2">Hygienisch ab Werk</div></div>
+      <div class="stat"><div class="stat-num">EU-weit</div><div class="stat-label" data-k="s3">Lieferung &amp; Abholung</div></div>
+    </div>
+
+    <div class="sec-label" style="margin-bottom:1.2rem;" data-k="abl_label">So funktioniert die Miete</div>
+    <div class="ablauf">
+      <div class="ab-step"><div class="ab-num">1</div><div class="ab-title" data-k="a1t">Anfrage</div><p class="ab-text" data-k="a1b">Produkt, Zeitraum und Lieferort mitteilen.</p></div>
+      <div class="ab-step"><div class="ab-num">2</div><div class="ab-title" data-k="a2t">Angebot</div><p class="ab-text" data-k="a2b">Individuelles Angebot in 24 Stunden.</p></div>
+      <div class="ab-step"><div class="ab-num">3</div><div class="ab-title" data-k="a3t">Lieferung</div><p class="ab-text" data-k="a3b">Wir liefern und erklären alles.</p></div>
+      <div class="ab-step"><div class="ab-num">4</div><div class="ab-title" data-k="a4t">Abholung</div><p class="ab-text" data-k="a4b">Termingerechte Abholung nach Mietende.</p></div>
+    </div>
+
+    <div class="sec-label" style="margin-bottom:1.2rem;" data-k="pak_label">Mietpakete</div>
+    <div class="pakete-grid">
+      <div class="paket">
+        <div class="paket-name" data-k="pk1n">Kurzmiete</div><div class="paket-dur" data-k="pk1d">1–7 Tage</div>
+        <ul class="paket-feats">
+          <li><span class="fi"><svg width="8" height="8" viewBox="0 0 8 8" fill="none"><path d="M1.5 4 L3.5 6 L6.5 2" stroke="#b19ff4" stroke-width="1.2"/></svg></span><span data-k="pk1f1">Lieferung &amp; Abholung inklusive</span></li>
+          <li><span class="fi"><svg width="8" height="8" viewBox="0 0 8 8" fill="none"><path d="M1.5 4 L3.5 6 L6.5 2" stroke="#b19ff4" stroke-width="1.2"/></svg></span><span data-k="pk1f2">Desinfiziert &amp; einsatzbereit</span></li>
+          <li><span class="fi"><svg width="8" height="8" viewBox="0 0 8 8" fill="none"><path d="M1.5 4 L3.5 6 L6.5 2" stroke="#b19ff4" stroke-width="1.2"/></svg></span><span data-k="pk1f3">Telefonischer Support</span></li>
+          <li><span class="fi"><svg width="8" height="8" viewBox="0 0 8 8" fill="none"><path d="M1.5 4 L3.5 6 L6.5 2" stroke="#b19ff4" stroke-width="1.2"/></svg></span><span data-k="pk1f4">Ideal für Events &amp; Wochenenden</span></li>
+        </ul>
+        <button class="paket-cta" data-k="pk1cta">Kurzmiete anfragen</button>
+      </div>
+      <div class="paket rec">
+        <div class="rec-badge" data-k="rec_b">Empfohlen</div>
+        <div class="paket-name" data-k="pk2n">Monatsmiete</div><div class="paket-dur" data-k="pk2d">1–3 Monate</div>
+        <ul class="paket-feats">
+          <li><span class="fi"><svg width="8" height="8" viewBox="0 0 8 8" fill="none"><path d="M1.5 4 L3.5 6 L6.5 2" stroke="#b19ff4" stroke-width="1.2"/></svg></span><span data-k="pk2f1">Lieferung &amp; Abholung</span></li>
+          <li><span class="fi"><svg width="8" height="8" viewBox="0 0 8 8" fill="none"><path d="M1.5 4 L3.5 6 L6.5 2" stroke="#b19ff4" stroke-width="1.2"/></svg></span><span data-k="pk2f2">Desinfiziert &amp; einsatzbereit</span></li>
+          <li><span class="fi"><svg width="8" height="8" viewBox="0 0 8 8" fill="none"><path d="M1.5 4 L3.5 6 L6.5 2" stroke="#b19ff4" stroke-width="1.2"/></svg></span><span data-k="pk2f3">Wartungscheck nach 4 Wochen</span></li>
+          <li><span class="fi"><svg width="8" height="8" viewBox="0 0 8 8" fill="none"><path d="M1.5 4 L3.5 6 L6.5 2" stroke="#b19ff4" stroke-width="1.2"/></svg></span><span data-k="pk2f4">Prioritärer Kundensupport</span></li>
+          <li><span class="fi"><svg width="8" height="8" viewBox="0 0 8 8" fill="none"><path d="M1.5 4 L3.5 6 L6.5 2" stroke="#b19ff4" stroke-width="1.2"/></svg></span><span data-k="pk2f5">Ideal für Badsanierungen</span></li>
+        </ul>
+        <button class="paket-cta" data-k="pk2cta">Monatsmiete anfragen</button>
+      </div>
+      <div class="paket">
+        <div class="paket-name" data-k="pk3n">Langzeitmiete</div><div class="paket-dur" data-k="pk3d">Ab 3 Monate</div>
+        <ul class="paket-feats">
+          <li><span class="fi"><svg width="8" height="8" viewBox="0 0 8 8" fill="none"><path d="M1.5 4 L3.5 6 L6.5 2" stroke="#b19ff4" stroke-width="1.2"/></svg></span><span data-k="pk3f1">Lieferung &amp; Abholung</span></li>
+          <li><span class="fi"><svg width="8" height="8" viewBox="0 0 8 8" fill="none"><path d="M1.5 4 L3.5 6 L6.5 2" stroke="#b19ff4" stroke-width="1.2"/></svg></span><span data-k="pk3f2">Regelmäßige Wartung &amp; Reinigung</span></li>
+          <li><span class="fi"><svg width="8" height="8" viewBox="0 0 8 8" fill="none"><path d="M1.5 4 L3.5 6 L6.5 2" stroke="#b19ff4" stroke-width="1.2"/></svg></span><span data-k="pk3f3">Dedizierter Ansprechpartner</span></li>
+          <li><span class="fi"><svg width="8" height="8" viewBox="0 0 8 8" fill="none"><path d="M1.5 4 L3.5 6 L6.5 2" stroke="#b19ff4" stroke-width="1.2"/></svg></span><span data-k="pk3f4">Austausch bei Defekt innerhalb 24h</span></li>
+          <li><span class="fi"><svg width="8" height="8" viewBox="0 0 8 8" fill="none"><path d="M1.5 4 L3.5 6 L6.5 2" stroke="#b19ff4" stroke-width="1.2"/></svg></span><span data-k="pk3f5">Ideal für Baustellen &amp; Institutionen</span></li>
+        </ul>
+        <button class="paket-cta" data-k="pk3cta">Langzeitmiete anfragen</button>
+      </div>
+    </div>
+    <div class="miete-tags">
+      <span class="mt">Washbox</span><span class="mt">Seatbox</span><span class="mt">Thunderbox Standard</span>
+      <span class="mt">Thunderbox VIP</span><span class="mt">Thunderbox Deluxe</span>
+      <span class="mt">Heatbox 15–150 L</span><span class="mt" data-k="mt8">Zubehör &amp; Sets</span>
+    </div>
+  </div>
+</div>
+
+<!-- VALUES -->
+<div class="vals-bg">
+  <div class="vals-inner">
+    <div class="sec-label" data-k="v_label">Unsere Stärken</div>
+    <h2 class="sec-title" data-k="v_title">Ingenieurkunst, die spürbar ist.</h2>
+    <div class="vals-grid">
+      <div class="val"><div class="val-title" data-k="v1t">100% Eigenfertigung</div><p class="val-text" data-k="v1b">Vom Rohling bis zum Aufbau, alles in Aindling, Bayern. Ohne Zwischenhändler, mit höchster Qualitätskontrolle.</p></div>
+      <div class="val"><div class="val-title" data-k="v2t">Maximale Mobilität</div><p class="val-text" data-k="v2b">Pannensichere Räder und Treppenrollis. Aufstellung in Minuten, ohne feste Installation oder Umbau.</p></div>
+      <div class="val"><div class="val-title" data-k="v3t">Ab Werk hygienisch</div><p class="val-text" data-k="v3b">Alle Produkte verlassen die Fertigung desinfiziert und hygienisch sauber, ob zum Kauf oder zur Miete.</p></div>
+      <div class="val"><div class="val-title" data-k="v4t">Europaweit vernetzt</div><p class="val-text" data-k="v4b">Schnelle Lieferung und pünktliche Abholung durch zuverlässige Logistikpartner in ganz Europa.</p></div>
+    </div>
+  </div>
+</div>
+
+<!-- USE CASES -->
+<div class="section" id="uses">
+  <div class="sec-label" data-k="u_label">Einsatzbereiche</div>
+  <h2 class="sec-title" data-k="u_title">Wo ZUNO BOX den Unterschied macht.</h2>
+  <p class="sec-body" data-k="u_body">Kaufen für dauerhafte Lösungen, mieten für temporären Bedarf. Jeder Einsatzort ist einzigartig.</p>
+  <div class="uses-grid">
+    <div class="use">
+      <div class="use-photo">
+        <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><rect x="2" y="6" width="24" height="18" rx="4" stroke="#b19ff4" stroke-width="0.9"/><line x1="2" y1="12" x2="26" y2="12" stroke="#b19ff4" stroke-width="0.7"/><rect x="8" y="16" width="5" height="5" rx="1" stroke="#b19ff4" stroke-width="0.7"/></svg>
+        <div class="ph-label" data-k="ph_u1">Washbox im Wohnflur<br>während Badsanierung</div>
+        <div class="ph-size">700 × 460 px · landscape</div>
+      </div>
+      <div class="use-body"><div class="use-title" data-k="u1t">Badsanierungen &amp; Umbauten</div><p class="use-text" data-k="u1b">Miete für die Dauer der Renovierung, danach Abholung. Volle Hygiene während der gesamten Bauzeit.</p></div>
+    </div>
+    <div class="use">
+      <div class="use-photo">
+        <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><polygon points="14,3 25,10 25,21 14,25 3,21 3,10" stroke="#b19ff4" stroke-width="0.9" fill="none"/><circle cx="14" cy="14" r="4" fill="rgba(177,159,244,0.2)"/></svg>
+        <div class="ph-label" data-k="ph_u2">Washboxen im Outdooreinsatz<br>Sportplatz oder Festival</div>
+        <div class="ph-size">700 × 460 px · landscape</div>
+      </div>
+      <div class="use-body"><div class="use-title" data-k="u2t">Events &amp; Sportveranstaltungen</div><p class="use-text" data-k="u2b">Kurzmiete ab einem Tag. Schneller Aufbau, einfache Wartung, hohe Nutzerfrequenz.</p></div>
+    </div>
+    <div class="use">
+      <div class="use-photo">
+        <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><rect x="4" y="15" width="20" height="10" rx="1" stroke="#b19ff4" stroke-width="0.9"/><path d="M8 15 L8 8 L20 8 L20 15" stroke="#b19ff4" stroke-width="0.9" fill="none"/><line x1="14" y1="8" x2="14" y2="4" stroke="#b19ff4" stroke-width="0.9"/></svg>
+        <div class="ph-label" data-k="ph_u3">Thunderbox &amp; Heatbox<br>auf Großbaustelle</div>
+        <div class="ph-size">700 × 460 px · landscape</div>
+      </div>
+      <div class="use-body"><div class="use-title" data-k="u3t">Baustellen &amp; Industrie</div><p class="use-text" data-k="u3b">Langzeitmiete mit regelmäßiger Wartung für Großprojekte. Normkonforme Sanitärinfrastruktur für Arbeitskräfte.</p></div>
+    </div>
+    <div class="use">
+      <div class="use-photo">
+        <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><circle cx="14" cy="14" r="11" stroke="#b19ff4" stroke-width="0.9" fill="none"/><line x1="14" y1="8" x2="14" y2="14" stroke="#b19ff4" stroke-width="1.4"/><circle cx="14" cy="18" r="1.5" fill="#b19ff4"/></svg>
+        <div class="ph-label" data-k="ph_u4">Washboxen im Hilfscamp<br>Moldova oder Notfalleinsatz</div>
+        <div class="ph-size">700 × 460 px · landscape</div>
+      </div>
+      <div class="use-body"><div class="use-title" data-k="u4t">Humanitärer Einsatz &amp; Notfälle</div><p class="use-text" data-k="u4b">Innerhalb von 48h lieferbar. Eingesetzt in Moldawien und bei stern TV. Verlässlichkeit unter extremen Bedingungen.</p></div>
+    </div>
+  </div>
+</div>
+
+<!-- CTA -->
+<div class="cta-sec" id="cta">
+  <div class="sec-label" style="margin-bottom:0.9rem;" data-k="cta_label">Kontakt aufnehmen</div>
+  <h2 class="cta-title"><span data-k="cta_t1">Kaufen oder</span> <em data-k="cta_t2">mieten?</em></h2>
+  <p class="cta-body" data-k="cta_body">Unsere Experten beraten Sie unverbindlich. Schildern Sie uns Ihr Projekt und wir finden die passende Lösung.</p>
+  <div class="cta-acts">
+    <button class="btn-p" data-k="cta_buy">Kaufangebot anfragen</button>
+    <button class="btn-g" data-k="cta_rent">Mietangebot anfragen</button>
+  </div>
+</div>
+
+<footer>
+  <div class="foot-logo">ZUNO <span>BOX</span></div>
+  <div style="font-size:11px;color:rgba(255,255,255,0.18);letter-spacing:0.15em;">BESSER LEBEN</div>
+  <div class="foot-copy">© 2026 Zuno Global GmbH · Schulstraße 19, 86447 Aindling</div>
+</footer>
+
+<script>
+function scroll2(id){ document.getElementById(id)&&document.getElementById(id).scrollIntoView({behavior:'smooth'}); }
+const L={
+de:{nav_prods:'Produkte',nav_km:'Kaufen & Mieten',nav_uses:'Einsatzbereiche',nav_contact:'Kontakt',nav_cta:'Anfrage stellen',hero_tag:'ZUNO Global · Produktlinie Box · 2025',hero_t1:'Mobile Sanitär',hero_t2:'lösungen.',hero_t3:'Überall einsatzbereit.',hero_body:'Modulare und transportable Systeme aus Bayern. Kaufen für dauerhafte Nutzung oder mieten für temporären Bedarf, flexibel, schnell verfügbar, hygienisch ab Werk.',hero_b1:'Katalog ansehen',hero_b2:'Kaufen & Mieten',slogan:'BESSER LEBEN · KAUFEN ODER MIETEN · MOBILE SANITÄRLÖSUNGEN AUS DEUTSCHLAND',ph_hero_bg:'Hintergrundfoto: mehrere Washboxen im professionellen Umfeld\nz.B. Baustelle, Sanierung oder Eventgelände\nFormat: 1440 × 900 px · landscape',p1s:'Mobile Dusche',p2s:'Mobile Sitzdusche',p3s:'Mobile Toilette',p4s:'Mobiler Boiler',prods_label:'Produktübersicht',prods_title:'Modulare Systeme für jeden Bedarf.',prods_body:'Jedes ZUNO BOX Produkt wird in eigener Fertigung in Aindling, Bayern hergestellt. Sofort einsatzbereit, desinfiziert und hygienisch sauber, ob zum Kauf oder zur Miete.',ph_washbox:'Produktfoto Washbox\nhochformat · stehend',ph_seatbox:'Produktfoto Seatbox\nhochformat · stehend',ph_thunder:'Produktfoto Thunderbox\nquerformat',ph_heat:'Produktfoto Heatbox\nquerformat',card_cta:'Kaufen & Mieten',p1d:'Zylindrische Dusche mit Thermostatarmatur, Vorhang und pannensicheren Rädern. Treppenrollis inklusive.',p2d:'Barrierefrei mit breitem Einstieg und ergonomischem Sitz. Transfer aus dem Rollstuhl einfach möglich.',p3d:'2-in-1 WC mit Keramikbecken, spülrandlos und integrierter Fäkalienpumpe. Drei Ausstattungsstufen.',p4d:'Heißes Wasser überall. Vier Kapazitätsstufen für Baustellen, Camping oder temporäre Standorte.',custom_t:'Sonderanfertigungen',custom_d:'Individuelle Farbgebung, Abmessungen und Design nach Ihren Vorgaben. Deutsches Ingenieurwesen.',custom_cta:'Anfrage stellen',km_label:'Kaufen & Mieten',km_title:'Ihr Weg zu ZUNO BOX.',km_body:'Ob dauerhafter Kauf oder flexible Miete, wir passen uns Ihrem Bedarf an. Lieferung und Beratung auf Anfrage.',buy_tag:'Kaufen',buy_title:'Dauerhaft. Ihr Eigentum.',buy_desc:'Ideal für Unternehmen und Privatkunden mit regelmäßigem Bedarf. Einmalige Investition, langfristiger Nutzen. Lieferung auf Anfrage.',bf1:'Individuelle Beratung vor dem Kauf',bf2:'Lieferung auf Anfrage',bf3:'Sonderfarben & Maßanfertigungen möglich',bf4:'Europäischer Kundendienst',buy_cta:'Kaufangebot anfragen',ph_kauf:'Foto: Produkt beim Kunden\ndauerhafte Installation\nz.B. im Bad oder Kellerraum',rent_badge:'Neu: Mietservice',rent_tag:'Mieten',rent_title:'Flexibel. Ohne Investition.',rent_desc:'Ideal für temporäre Projekte, Badsanierungen oder Events. Lieferung und Abholung durch unser Team.',rf1:'Kurzmiete ab 1 Tag',rf2:'Angebot innerhalb von 24 Stunden',rf3:'Desinfiziert & einsatzbereit',rf4:'Pünktliche Abholung nach Mietende',rent_cta:'Mietangebot anfragen',ph_miete:'Foto: Lieferung und Aufbau\ndurch unser Team vor Ort\nz.B. Eingang Wohngebäude',s1:'Lieferbereit ab Anfrage',s2:'Hygienisch ab Werk',s3:'Lieferung & Abholung',abl_label:'So funktioniert die Miete',a1t:'Anfrage',a1b:'Produkt, Zeitraum und Lieferort mitteilen.',a2t:'Angebot',a2b:'Individuelles Angebot in 24 Stunden.',a3t:'Lieferung',a3b:'Wir liefern und erklären alles.',a4t:'Abholung',a4b:'Termingerechte Abholung nach Mietende.',pak_label:'Mietpakete',rec_b:'Empfohlen',pk1n:'Kurzmiete',pk1d:'1–7 Tage',pk1f1:'Lieferung & Abholung inklusive',pk1f2:'Desinfiziert & einsatzbereit',pk1f3:'Telefonischer Support',pk1f4:'Ideal für Events & Wochenenden',pk1cta:'Kurzmiete anfragen',pk2n:'Monatsmiete',pk2d:'1–3 Monate',pk2f1:'Lieferung & Abholung',pk2f2:'Desinfiziert & einsatzbereit',pk2f3:'Wartungscheck nach 4 Wochen',pk2f4:'Prioritärer Kundensupport',pk2f5:'Ideal für Badsanierungen',pk2cta:'Monatsmiete anfragen',pk3n:'Langzeitmiete',pk3d:'Ab 3 Monate',pk3f1:'Lieferung & Abholung',pk3f2:'Regelmäßige Wartung & Reinigung',pk3f3:'Dedizierter Ansprechpartner',pk3f4:'Austausch bei Defekt innerhalb 24h',pk3f5:'Ideal für Baustellen & Institutionen',pk3cta:'Langzeitmiete anfragen',mt8:'Zubehör & Sets',v_label:'Unsere Stärken',v_title:'Ingenieurkunst, die spürbar ist.',v1t:'100% Eigenfertigung',v1b:'Vom Rohling bis zum Aufbau, alles in Aindling, Bayern. Ohne Zwischenhändler, mit höchster Qualitätskontrolle.',v2t:'Maximale Mobilität',v2b:'Pannensichere Räder und Treppenrollis. Aufstellung in Minuten, ohne feste Installation oder Umbau.',v3t:'Ab Werk hygienisch',v3b:'Alle Produkte verlassen die Fertigung desinfiziert und hygienisch sauber, ob zum Kauf oder zur Miete.',v4t:'Europaweit vernetzt',v4b:'Schnelle Lieferung und pünktliche Abholung durch zuverlässige Logistikpartner in ganz Europa.',u_label:'Einsatzbereiche',u_title:'Wo ZUNO BOX den Unterschied macht.',u_body:'Kaufen für dauerhafte Lösungen, mieten für temporären Bedarf. Jeder Einsatzort ist einzigartig.',ph_u1:'Washbox im Wohnflur\nwährend Badsanierung',ph_u2:'Washboxen im Outdooreinsatz\nSportplatz oder Festival',ph_u3:'Thunderbox & Heatbox\nauf Großbaustelle',ph_u4:'Washboxen im Hilfscamp\nMoldova oder Notfalleinsatz',u1t:'Badsanierungen & Umbauten',u1b:'Miete für die Dauer der Renovierung, danach Abholung. Volle Hygiene während der gesamten Bauzeit.',u2t:'Events & Sportveranstaltungen',u2b:'Kurzmiete ab einem Tag. Schneller Aufbau, einfache Wartung, hohe Nutzerfrequenz.',u3t:'Baustellen & Industrie',u3b:'Langzeitmiete mit regelmäßiger Wartung für Großprojekte. Normkonforme Sanitärinfrastruktur für Arbeitskräfte.',u4t:'Humanitärer Einsatz & Notfälle',u4b:'Innerhalb von 48h lieferbar. Eingesetzt in Moldawien und bei stern TV. Verlässlichkeit unter extremen Bedingungen.',cta_label:'Kontakt aufnehmen',cta_t1:'Kaufen oder',cta_t2:'mieten?',cta_body:'Unsere Experten beraten Sie unverbindlich. Schildern Sie uns Ihr Projekt und wir finden die passende Lösung.',cta_buy:'Kaufangebot anfragen',cta_rent:'Mietangebot anfragen'},
+en:{nav_prods:'Products',nav_km:'Buy & Rent',nav_uses:'Use cases',nav_contact:'Contact',nav_cta:'Request info',hero_tag:'ZUNO Global · Box Product Line · 2025',hero_t1:'Mobile sanitary',hero_t2:'solutions.',hero_t3:'Ready anywhere.',hero_body:'Modular and transportable systems from Bavaria. Buy for permanent use or rent for temporary needs, flexible, fast and hygienic from the factory.',hero_b1:'View catalogue',hero_b2:'Buy & Rent',slogan:'BETTER LIVING · BUY OR RENT · MOBILE SANITARY SOLUTIONS FROM GERMANY',ph_hero_bg:'Background photo: several Washboxes in a professional setting\ne.g. construction site, renovation or event venue\nSize: 1440 × 900 px · landscape',p1s:'Mobile shower',p2s:'Mobile seat shower',p3s:'Mobile toilet',p4s:'Mobile boiler',prods_label:'Product overview',prods_title:'Modular systems for every need.',prods_body:'Every ZUNO BOX product is made in our own facility in Aindling, Bavaria. Ready immediately, disinfected and hygienically clean, whether purchased or rented.',ph_washbox:'Product photo Washbox\nportrait · upright',ph_seatbox:'Product photo Seatbox\nportrait · upright',ph_thunder:'Product photo Thunderbox\nlandscape',ph_heat:'Product photo Heatbox\nlandscape',card_cta:'Buy & Rent',p1d:'Cylindrical shower with thermostatic fitting, curtain and puncture-proof wheels. Stair trolley included.',p2d:'Barrier-free with wide entry and ergonomic seat. Easy wheelchair transfer.',p3d:'2-in-1 WC with ceramic bowl, rimless and integrated sewage pump. Three equipment levels.',p4d:'Hot water anywhere. Four capacity levels for construction sites, camping or temporary locations.',custom_t:'Custom orders',custom_d:'Individual colours, dimensions and design to your specifications. German engineering.',custom_cta:'Request a quote',km_label:'Buy & Rent',km_title:'Your path to ZUNO BOX.',km_body:'Permanent purchase or flexible rental, we adapt to your needs. Delivery and consultation on request.',buy_tag:'Buy',buy_title:'Permanent. Yours to keep.',buy_desc:'Ideal for companies and private customers with regular needs. One-time investment, long-term value.',bf1:'Individual consultation before purchase',bf2:'Delivery on request',bf3:'Custom colours & dimensions available',bf4:'European customer service',buy_cta:'Request purchase offer',ph_kauf:'Photo: product at customer premises\nlong-term use\ne.g. bathroom or utility room',rent_badge:'New: Rental service',rent_tag:'Rent',rent_title:'Flexible. No investment needed.',rent_desc:'Ideal for temporary projects, renovations or events. Delivery and collection by our team.',rf1:'Short-term rental from 1 day',rf2:'Offer within 24 hours',rf3:'Disinfected & ready to use',rf4:'Punctual collection after rental ends',rent_cta:'Request rental offer',ph_miete:'Photo: delivery and setup\nby our team on site\ne.g. building entrance',s1:'Ready for delivery from request',s2:'Hygienic from factory',s3:'EU-wide delivery & collection',abl_label:'How renting works',a1t:'Request',a1b:'Tell us product, period and delivery address.',a2t:'Offer',a2b:'Individual offer within 24 hours.',a3t:'Delivery',a3b:'We deliver and explain everything.',a4t:'Collection',a4b:'Punctual collection after rental ends.',pak_label:'Rental packages',rec_b:'Recommended',pk1n:'Short-term rental',pk1d:'1 to 7 days',pk1f1:'Delivery & collection included',pk1f2:'Disinfected & ready to use',pk1f3:'Phone support',pk1f4:'Ideal for events & weekends',pk1cta:'Request short rental',pk2n:'Monthly rental',pk2d:'1 to 3 months',pk2f1:'Delivery & collection',pk2f2:'Disinfected & ready to use',pk2f3:'Maintenance check after 4 weeks',pk2f4:'Priority customer support',pk2f5:'Ideal for bathroom renovations',pk2cta:'Request monthly rental',pk3n:'Long-term rental',pk3d:'From 3 months',pk3f1:'Delivery & collection',pk3f2:'Regular maintenance & cleaning',pk3f3:'Dedicated contact person',pk3f4:'Replacement within 24h if defective',pk3f5:'Ideal for construction sites',pk3cta:'Request long-term rental',mt8:'Accessories & sets',v_label:'Our strengths',v_title:'Engineering you can feel.',v1t:'100% in-house production',v1b:'From raw material to assembly, everything in Aindling, Bavaria. No middlemen, highest quality control.',v2t:'Maximum mobility',v2b:'Puncture-proof wheels and stair trolleys. Set up in minutes with no fixed installation.',v3t:'Hygienic from the factory',v3b:'All products leave production disinfected and clean, whether purchased or rented.',v4t:'European network',v4b:'Fast delivery and punctual collection through reliable logistics partners across Europe.',u_label:'Use cases',u_title:'Where ZUNO BOX makes the difference.',u_body:'Buy for permanent solutions, rent for temporary needs. Every location is unique.',ph_u1:'Washbox in home hallway\nduring bathroom renovation',ph_u2:'Washboxes outdoors\nsports venue or festival',ph_u3:'Thunderbox & Heatbox\non construction site',ph_u4:'Washboxes in aid camp\nMoldova or emergency',u1t:'Bathroom renovations',u1b:'Rent for the renovation period, then collected. Full hygiene throughout the construction period.',u2t:'Events & sports competitions',u2b:'Short-term rental from one day. Fast setup, easy maintenance, high frequency.',u3t:'Construction sites & industry',u3b:'Long-term rental with regular maintenance for large projects. Standards-compliant sanitary infrastructure.',u4t:'Humanitarian aid & emergencies',u4b:'Deliverable within 48 hours. Proven in Moldova and on stern TV.',cta_label:'Get in touch',cta_t1:'Buy or',cta_t2:'rent?',cta_body:'Our experts advise you without obligation. Tell us your project and we will find the right solution.',cta_buy:'Request purchase offer',cta_rent:'Request rental offer'},
+es:{nav_prods:'Productos',nav_km:'Comprar & Arrendar',nav_uses:'Casos de uso',nav_contact:'Contacto',nav_cta:'Solicitar info',hero_tag:'ZUNO Global · Línea Box · 2025',hero_t1:'Soluciones sanitarias',hero_t2:'móviles.',hero_t3:'Listas para cualquier lugar.',hero_body:'Sistemas modulares y transportables fabricados en Baviera. Compra para uso permanente o arrienda para necesidades temporales, flexibles, rápidos e higiénicos de fábrica.',hero_b1:'Ver catálogo',hero_b2:'Comprar & Arrendar',slogan:'VIVIR MEJOR · COMPRAR O ARRENDAR · SOLUCIONES SANITARIAS MÓVILES DE ALEMANIA',ph_hero_bg:'Foto de fondo: varias Washboxes en entorno profesional\np.ej. obra, renovación o recinto de evento\nFormato: 1440 × 900 px · horizontal',p1s:'Ducha móvil',p2s:'Ducha con asiento móvil',p3s:'WC móvil',p4s:'Boiler móvil',prods_label:'Catálogo de productos',prods_title:'Sistemas modulares para cada necesidad.',prods_body:'Cada producto ZUNO BOX se fabrica en nuestra planta en Aindling, Baviera. Listo de inmediato, desinfectado e higiénico, ya sea comprado o arrendado.',ph_washbox:'Foto del producto Washbox\nvertical · de pie',ph_seatbox:'Foto del producto Seatbox\nvertical · de pie',ph_thunder:'Foto del producto Thunderbox\nhorizontal',ph_heat:'Foto del producto Heatbox\nhorizontal',card_cta:'Comprar & Arrendar',p1d:'Ducha cilíndrica con termostato, cortina y ruedas antipinchazos. Carrito de escaleras incluido.',p2d:'Acceso sin barreras con entrada amplia y asiento ergonómico. Transferencia desde silla de ruedas sin esfuerzo.',p3d:'WC 2 en 1 con cerámica sin reborde y bomba de aguas residuales integrada. Tres niveles de equipamiento.',p4d:'Agua caliente en cualquier lugar. Cuatro capacidades para obras, camping o ubicaciones temporales.',custom_t:'Fabricación a medida',custom_d:'Color, dimensiones y diseño personalizados según sus especificaciones. Ingeniería alemana.',custom_cta:'Solicitar cotización',km_label:'Comprar & Arrendar',km_title:'Su camino hacia ZUNO BOX.',km_body:'Compra definitiva o arriendo flexible, nos adaptamos a su proyecto. Entrega y asesoría bajo solicitud.',buy_tag:'Comprar',buy_title:'Permanente. Su propiedad.',buy_desc:'Ideal para empresas y clientes privados con necesidades regulares. Inversión única, beneficio a largo plazo.',bf1:'Asesoría individual antes de la compra',bf2:'Entrega bajo solicitud',bf3:'Colores y medidas personalizadas disponibles',bf4:'Servicio al cliente europeo',buy_cta:'Solicitar oferta de compra',ph_kauf:'Foto: producto en domicilio del cliente\ninstalación permanente\np.ej. baño o cuarto de servicio',rent_badge:'Nuevo: Servicio de arriendo',rent_tag:'Arrendar',rent_title:'Flexible. Sin inversión.',rent_desc:'Ideal para proyectos temporales, renovaciones de baño o eventos. Entrega y recogida a cargo de nuestro equipo.',rf1:'Arriendo corto desde 1 día',rf2:'Oferta en 24 horas',rf3:'Desinfectado y listo para usar',rf4:'Recogida puntual al finalizar el arriendo',rent_cta:'Solicitar oferta de arriendo',ph_miete:'Foto: entrega e instalación\npor nuestro equipo en sitio\np.ej. entrada de edificio residencial',s1:'Listo para entrega desde la solicitud',s2:'Higiénico de fábrica',s3:'Entrega y recogida en toda Europa',abl_label:'Cómo funciona el arriendo',a1t:'Solicitud',a1b:'Indique producto, período y lugar de entrega.',a2t:'Oferta',a2b:'Oferta individual en 24 horas.',a3t:'Entrega',a3b:'Entregamos y explicamos todo.',a4t:'Recogida',a4b:'Recogida puntual al finalizar el arriendo.',pak_label:'Paquetes de arriendo',rec_b:'Recomendado',pk1n:'Arriendo corto',pk1d:'1 a 7 días',pk1f1:'Entrega y recogida incluidas',pk1f2:'Desinfectado y listo para usar',pk1f3:'Soporte telefónico',pk1f4:'Ideal para eventos y fines de semana',pk1cta:'Solicitar arriendo corto',pk2n:'Arriendo mensual',pk2d:'1 a 3 meses',pk2f1:'Entrega y recogida',pk2f2:'Desinfectado y listo para usar',pk2f3:'Revisión de mantenimiento a las 4 semanas',pk2f4:'Soporte prioritario al cliente',pk2f5:'Ideal para renovaciones de baño',pk2cta:'Solicitar arriendo mensual',pk3n:'Arriendo largo plazo',pk3d:'Desde 3 meses',pk3f1:'Entrega y recogida',pk3f2:'Mantenimiento y limpieza regulares',pk3f3:'Contacto dedicado asignado',pk3f4:'Reemplazo en 24h por defecto',pk3f5:'Ideal para obras e instituciones',pk3cta:'Solicitar arriendo largo plazo',mt8:'Accesorios y sets',v_label:'Nuestras fortalezas',v_title:'Ingeniería que se siente.',v1t:'100% fabricación propia',v1b:'Desde la materia prima hasta el ensamblaje, todo en Aindling, Baviera. Sin intermediarios, máximo control de calidad.',v2t:'Movilidad total',v2b:'Ruedas antipinchazos y carrito de escaleras. Instalación en minutos sin obras ni instalaciones fijas.',v3t:'Higiénico de fábrica',v3b:'Todos los productos salen desinfectados e higiénicos, ya sea comprado o arrendado.',v4t:'Red europea',v4b:'Entrega rápida y recogida puntual a través de socios logísticos confiables en toda Europa.',u_label:'Casos de uso',u_title:'Donde ZUNO BOX marca la diferencia.',u_body:'Compra para soluciones permanentes, arrienda para necesidades temporales. Cada lugar es único.',ph_u1:'Washbox en el pasillo del hogar\ndurante renovación de baño',ph_u2:'Washboxes en uso exterior\nestadio deportivo o festival',ph_u3:'Thunderbox y Heatbox\nen obra de construcción',ph_u4:'Washboxes en campamento de ayuda\nMoldavia o zona de emergencia',u1t:'Renovaciones de baño',u1b:'Arriende durante la obra y lo recogemos al terminar. Higiene completa durante toda la construcción.',u2t:'Eventos y competencias deportivas',u2b:'Arriendo corto desde un día. Montaje rápido, mantenimiento simple, alta frecuencia de uso.',u3t:'Obras e industria',u3b:'Arriendo a largo plazo con mantenimiento regular para grandes proyectos. Infraestructura sanitaria normativa.',u4t:'Ayuda humanitaria y emergencias',u4b:'Entregable en 48 horas. Utilizado en Moldavia y en stern TV. Confiabilidad demostrada.',cta_label:'Contáctenos',cta_t1:'¿Comprar o',cta_t2:'arrendar?',cta_body:'Nuestros expertos le asesoran sin compromiso. Cuéntenos su proyecto y encontraremos la solución adecuada.',cta_buy:'Solicitar oferta de compra',cta_rent:'Solicitar oferta de arriendo'}
+};
+let lang='de';
+function T(k){return(L[lang]&&L[lang][k])||L.de[k]||k;}
+function setLang(l){
+  lang=l;
+  document.querySelectorAll('.lang-btn').forEach(b=>b.classList.toggle('active',b.textContent===l.toUpperCase()));
+  document.documentElement.lang=l;
+  document.querySelectorAll('[data-k]').forEach(el=>{
+    const v=T(el.getAttribute('data-k'));
+    if(v) el.textContent=v;
+  });
+}
+</script>
+</body>
+</html>
