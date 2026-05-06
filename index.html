@@ -142,9 +142,10 @@ nav {
 .stat-label { font-size:11px; color:var(--t2); margin-top:2px; }
 
 /* ABLAUF */
-.ablauf { display:grid; grid-template-columns:repeat(4,1fr); gap:0; margin-bottom:2.5rem; position:relative; }
+.ablauf { --ablauf-progress:0; display:grid; grid-template-columns:repeat(4,1fr); gap:0; margin-bottom:2.5rem; position:relative; }
 .ablauf::before { content:''; position:absolute; top:19px; left:12.5%; right:12.5%; height:0.5px; background:rgba(177,159,244,0.25); }
-.ab-step { text-align:center; padding:0 0.4rem; position:relative; z-index:1; }
+.ablauf::after { content:''; position:absolute; top:18px; left:12.5%; width:calc(var(--ablauf-progress) * 75%); height:2px; border-radius:999px; background:var(--v); box-shadow:0 0 18px rgba(177,159,244,0.42); z-index:0; }
+.ab-step { text-align:center; padding:0 0.4rem; position:relative; z-index:1; will-change:transform,opacity; }
 .ab-num { width:38px; height:38px; border-radius:50%; background:var(--g); border:1.5px solid var(--v); display:flex; align-items:center; justify-content:center; font-size:13px; font-weight:700; color:var(--v); margin:0 auto 0.7rem; }
 .ab-title { font-size:12px; font-weight:700; margin-bottom:0.25rem; color:#fff; }
 .ab-text { font-size:11px; color:var(--t2); line-height:1.6; }
@@ -371,6 +372,9 @@ button, a, svg { max-width:100%; }
     gap:1rem;
   }
   .ablauf::before {
+    display:none;
+  }
+  .ablauf::after {
     display:none;
   }
   .ab-step {
@@ -894,7 +898,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
   gsap.utils.toArray('.section, .vals-bg, .cta-sec').forEach((section) => {
     const headings = section.querySelectorAll('.sec-label, .sec-title, .sec-body, .cta-title, .cta-body');
-    const items = section.querySelectorAll('.product-card, .km-card, .stat, .ab-step, .paket, .val, .use, .miete-tags .mt, .cta-acts button');
+    const items = section.querySelectorAll('.product-card, .km-card, .stat, .paket, .val, .use, .miete-tags .mt, .cta-acts button');
 
     if (headings.length) {
       gsap.from(headings, {
@@ -916,6 +920,96 @@ window.addEventListener('DOMContentLoaded', () => {
       });
     }
   });
+
+  const ablauf = document.querySelector('.ablauf');
+  if (ablauf) {
+    const steps = gsap.utils.toArray('.ab-step', ablauf);
+    const setStepFocus = (activeIndex, lift = -8) => {
+      steps.forEach((step, index) => {
+        const isActive = index === activeIndex;
+        const isPast = index < activeIndex;
+        const title = step.querySelector('.ab-title');
+        const text = step.querySelector('.ab-text');
+        const num = step.querySelector('.ab-num');
+
+        gsap.to(step, {
+          autoAlpha:isActive ? 1 : (isPast ? 0.72 : 0.42),
+          y:isActive ? lift : 0,
+          scale:isActive ? 1.04 : 0.98,
+          duration:0.28,
+          overwrite:true
+        });
+        gsap.to(num, {
+          backgroundColor:isActive ? '#b19ff4' : '#2f2f36',
+          color:isActive ? '#2f2f36' : '#b19ff4',
+          boxShadow:isActive ? '0 0 28px rgba(177,159,244,0.58)' : '0 0 0 rgba(177,159,244,0)',
+          duration:0.28,
+          overwrite:true
+        });
+        gsap.to(title, {
+          color:isActive ? '#ffffff' : 'rgba(255,255,255,0.72)',
+          duration:0.28,
+          overwrite:true
+        });
+        gsap.to(text, {
+          color:isActive ? 'rgba(255,255,255,0.78)' : 'rgba(255,255,255,0.42)',
+          duration:0.28,
+          overwrite:true
+        });
+      });
+    };
+
+    gsap.matchMedia()
+      .add('(min-width: 769px)', () => {
+        let lastIndex = -1;
+        setStepFocus(0);
+        const trigger = ScrollTrigger.create({
+          trigger:ablauf,
+          start:'center center',
+          end:() => '+=' + Math.min(1000, window.innerHeight * 1.15),
+          pin:true,
+          pinSpacing:true,
+          scrub:true,
+          anticipatePin:1,
+          invalidateOnRefresh:true,
+          onUpdate:(self) => {
+            const activeIndex = Math.min(steps.length - 1, Math.floor(self.progress * steps.length));
+            ablauf.style.setProperty('--ablauf-progress', self.progress.toFixed(3));
+            if (activeIndex !== lastIndex) {
+              lastIndex = activeIndex;
+              setStepFocus(activeIndex);
+            }
+          },
+          onLeave:() => setStepFocus(steps.length - 1),
+          onLeaveBack:() => {
+            ablauf.style.setProperty('--ablauf-progress', '0');
+            setStepFocus(0);
+          }
+        });
+
+        return () => trigger.kill();
+      })
+      .add('(max-width: 768px)', () => {
+        const triggers = steps.map((step, index) => ScrollTrigger.create({
+          trigger:step,
+          start:'top 62%',
+          end:'bottom 42%',
+          onEnter:() => setStepFocus(index, -4),
+          onEnterBack:() => setStepFocus(index, -4),
+          onLeaveBack:() => setStepFocus(Math.max(index - 1, 0), -4)
+        }));
+        gsap.from(steps, {
+          scrollTrigger:{ trigger:ablauf, start:'top 82%', once:true },
+          autoAlpha:0,
+          y:22,
+          stagger:0.08,
+          duration:0.55
+        });
+        setStepFocus(0, -4);
+
+        return () => triggers.forEach((trigger) => trigger.kill());
+      });
+  }
 
   gsap.utils.toArray('.card-photo-portrait, .card-photo-landscape, .km-photo, .use-photo').forEach((photo) => {
     gsap.from(photo, {
