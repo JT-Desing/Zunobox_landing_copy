@@ -90,6 +90,57 @@ nav {
 .ph svg { opacity:0.4; }
 .ph-label { font-size:11px; letter-spacing:0.1em; text-transform:uppercase; line-height:1.7; color:rgba(177,159,244,0.45); }
 .ph-size { font-size:10px; color:rgba(177,159,244,0.28); margin-top:2px; }
+.hero-bg-placeholder.is-photo {
+  inset:0;
+  border:0;
+  border-radius:0;
+  overflow:hidden;
+  display:block;
+  background:#0d0d12;
+}
+.hero-bg-placeholder.is-photo img,
+.media-photo img {
+  width:100%;
+  height:100%;
+  display:block;
+}
+.hero-bg-placeholder.is-photo img {
+  object-fit:cover;
+  object-position:center;
+  opacity:0.82;
+  filter:saturate(0.96) contrast(0.98) brightness(0.74);
+}
+.media-photo {
+  padding:0;
+  overflow:hidden;
+  position:relative;
+  background:#08080d;
+  border:0.5px solid rgba(177,159,244,0.25);
+}
+.media-photo img {
+  object-fit:cover;
+  object-position:center;
+  transition:transform 0.45s ease, filter 0.45s ease;
+}
+.card-photo-portrait.media-photo {
+  height:clamp(340px, 39vw, 430px);
+}
+.card-photo-portrait.media-photo img {
+  object-fit:contain;
+  background:#050508;
+}
+.km-photo.media-photo {
+  height:clamp(240px, 28vw, 300px);
+}
+.use-photo.media-photo {
+  height:clamp(235px, 28vw, 300px);
+}
+.product-card:hover .media-photo img,
+.km-card:hover .media-photo img,
+.use:hover .media-photo img {
+  transform:scale(1.035);
+  filter:saturate(1.04) contrast(1.02);
+}
 
 /* PRODUCTS */
 .products-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1.2rem; }
@@ -577,13 +628,8 @@ button, a, svg { max-width:100%; }
 <!-- HERO -->
 <div class="hero-wrap">
   <div class="hero-bg">
-    <div class="hero-bg-placeholder">
-      <svg width="52" height="52" viewBox="0 0 52 52" fill="none">
-        <rect x="4" y="10" width="44" height="34" rx="4" stroke="#b19ff4" stroke-width="1.2"/>
-        <circle cx="20" cy="26" r="7" stroke="#b19ff4" stroke-width="1.2"/>
-        <path d="M4 40 L16 28 L26 36 L36 24 L48 40" stroke="#b19ff4" stroke-width="1.2" fill="none"/>
-      </svg>
-      <p data-k="ph_hero_bg">Hintergrundfoto: mehrere Washboxen im professionellen Umfeld<br>z.B. Baustelle, Sanierung oder Eventgelände<br>Format: 1440 × 900 px · landscape</p>
+    <div class="hero-bg-placeholder is-photo">
+      <img src="assets/banner.png" alt="ZUNO BOX Washbox und Seatbox en un baño moderno" loading="eager">
     </div>
   </div>
   <div class="hero-overlay"></div>
@@ -622,10 +668,8 @@ button, a, svg { max-width:100%; }
 
     <div class="product-card feat">
       <div class="feat-badge">Flagship</div>
-      <div class="card-photo-portrait">
-        <svg width="32" height="32" viewBox="0 0 32 32" fill="none"><rect x="9" y="1" width="14" height="30" rx="4" stroke="#b19ff4" stroke-width="1"/><line x1="11" y1="9" x2="21" y2="9" stroke="#b19ff4" stroke-width="0.7" stroke-dasharray="2 2"/><line x1="11" y1="14" x2="21" y2="14" stroke="#b19ff4" stroke-width="0.7" stroke-dasharray="2 2"/><circle cx="16" cy="25" r="2.5" fill="#b19ff4" opacity="0.4"/></svg>
-        <div class="ph-label" data-k="ph_washbox">Produktfoto Washbox<br>hochformat · stehend</div>
-        <div class="ph-size">400 × 700 px · portrait</div>
+      <div class="card-photo-portrait media-photo">
+        <img src="assets/washbox.png" alt="Washbox ducha móvil blanca" loading="lazy">
       </div>
       <div class="card-body">
         <div class="card-name">Washbox</div><div class="card-sub" data-k="p1s">Mobile Dusche</div>
@@ -636,10 +680,8 @@ button, a, svg { max-width:100%; }
     </div>
 
     <div class="product-card">
-      <div class="card-photo-portrait">
-        <svg width="32" height="32" viewBox="0 0 32 32" fill="none"><rect x="4" y="12" width="24" height="16" rx="8" stroke="#b19ff4" stroke-width="1" fill="none"/><rect x="13" y="16" width="6" height="6" rx="1.5" fill="rgba(177,159,244,0.35)"/><line x1="16" y1="12" x2="16" y2="6" stroke="#b19ff4" stroke-width="1"/></svg>
-        <div class="ph-label" data-k="ph_seatbox">Produktfoto Seatbox<br>hochformat · stehend</div>
-        <div class="ph-size">400 × 700 px · portrait</div>
+      <div class="card-photo-portrait media-photo">
+        <img src="assets/seatbox.png" alt="Seatbox ducha móvil con asiento" loading="lazy">
       </div>
       <div class="card-body">
         <div class="card-name">Seatbox</div><div class="card-sub" data-k="p2s">Mobile Sitzdusche</div>
@@ -670,10 +712,8 @@ button, a, svg { max-width:100%; }
     <p class="sec-body" data-k="km_body">Ob dauerhafter Kauf oder flexible Miete, wir passen uns Ihrem Bedarf an. Lieferung und Beratung auf Anfrage.</p>
     <div class="km-grid">
       <div class="km-card">
-        <div class="km-photo">
-          <svg width="36" height="36" viewBox="0 0 36 36" fill="none"><path d="M8 4L4 9v20a3 3 0 003 3h22a3 3 0 003-3V9l-4-5z" stroke="#b19ff4" stroke-width="1" fill="none"/><line x1="4" y1="9" x2="32" y2="9" stroke="#b19ff4" stroke-width="1"/><path d="M22 15a4 4 0 01-8 0" stroke="#b19ff4" stroke-width="1" fill="none"/></svg>
-          <div class="ph-label" data-k="ph_kauf">Foto: Produkt beim Kunden<br>dauerhafte Installation<br>z.B. im Bad oder Kellerraum</div>
-          <div class="ph-size">800 × 500 px · landscape</div>
+        <div class="km-photo media-photo">
+          <img src="assets/kaufen.png" alt="Washbox instalada en baño moderno para compra" loading="lazy">
         </div>
         <div class="km-body">
           <div class="km-label-row"><div class="km-dot"></div><span class="km-tag" data-k="buy_tag">Kaufen</span></div>
@@ -690,10 +730,8 @@ button, a, svg { max-width:100%; }
       </div>
       <div class="km-card rec">
         <div class="km-top-badge" data-k="rent_badge">Neu: Mietservice</div>
-        <div class="km-photo" style="margin-top:0;">
-          <svg width="36" height="36" viewBox="0 0 36 36" fill="none"><rect x="4" y="6" width="28" height="24" rx="3" stroke="#b19ff4" stroke-width="1" fill="none"/><path d="M12 6V3M24 6V3" stroke="#b19ff4" stroke-width="1"/><line x1="4" y1="13" x2="32" y2="13" stroke="#b19ff4" stroke-width="1"/><circle cx="12" cy="22" r="2" fill="#b19ff4" opacity="0.5"/><circle cx="18" cy="22" r="2" fill="#b19ff4" opacity="0.5"/><circle cx="24" cy="22" r="2" fill="#b19ff4" opacity="0.5"/></svg>
-          <div class="ph-label" data-k="ph_miete">Foto: Lieferung und Aufbau<br>durch unser Team vor Ort<br>z.B. Eingang Wohngebäude</div>
-          <div class="ph-size">800 × 500 px · landscape</div>
+        <div class="km-photo media-photo" style="margin-top:0;">
+          <img src="assets/mieten.png" alt="Varias Washbox disponibles para arriendo" loading="lazy">
         </div>
         <div class="km-body">
           <div class="km-label-row"><div class="km-dot"></div><span class="km-tag" data-k="rent_tag">Mieten</span></div>
@@ -789,34 +827,26 @@ button, a, svg { max-width:100%; }
   <p class="sec-body" data-k="u_body">Kaufen für dauerhafte Lösungen, mieten für temporären Bedarf. Jeder Einsatzort ist einzigartig.</p>
   <div class="uses-grid">
     <div class="use">
-      <div class="use-photo">
-        <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><rect x="2" y="6" width="24" height="18" rx="4" stroke="#b19ff4" stroke-width="0.9"/><line x1="2" y1="12" x2="26" y2="12" stroke="#b19ff4" stroke-width="0.7"/><rect x="8" y="16" width="5" height="5" rx="1" stroke="#b19ff4" stroke-width="0.7"/></svg>
-        <div class="ph-label" data-k="ph_u1">Washbox im Wohnflur<br>während Badsanierung</div>
-        <div class="ph-size">700 × 460 px · landscape</div>
+      <div class="use-photo media-photo">
+        <img src="assets/badsanierungen-umbauten.png" alt="Washbox durante remodelación de baño" loading="lazy">
       </div>
       <div class="use-body"><div class="use-title" data-k="u1t">Badsanierungen &amp; Umbauten</div><p class="use-text" data-k="u1b">Miete für die Dauer der Renovierung, danach Abholung. Volle Hygiene während der gesamten Bauzeit.</p></div>
     </div>
     <div class="use">
-      <div class="use-photo">
-        <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><polygon points="14,3 25,10 25,21 14,25 3,21 3,10" stroke="#b19ff4" stroke-width="0.9" fill="none"/><circle cx="14" cy="14" r="4" fill="rgba(177,159,244,0.2)"/></svg>
-        <div class="ph-label" data-k="ph_u2">Washboxen im Outdooreinsatz<br>Sportplatz oder Festival</div>
-        <div class="ph-size">700 × 460 px · landscape</div>
+      <div class="use-photo media-photo">
+        <img src="assets/events-sportveranstaltungen.png" alt="Washboxes en evento o actividad deportiva" loading="lazy">
       </div>
       <div class="use-body"><div class="use-title" data-k="u2t">Events &amp; Sportveranstaltungen</div><p class="use-text" data-k="u2b">Kurzmiete ab einem Tag. Schneller Aufbau, einfache Wartung, hohe Nutzerfrequenz.</p></div>
     </div>
     <div class="use">
-      <div class="use-photo">
-        <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><rect x="4" y="15" width="20" height="10" rx="1" stroke="#b19ff4" stroke-width="0.9"/><path d="M8 15 L8 8 L20 8 L20 15" stroke="#b19ff4" stroke-width="0.9" fill="none"/><line x1="14" y1="8" x2="14" y2="4" stroke="#b19ff4" stroke-width="0.9"/></svg>
-        <div class="ph-label" data-k="ph_u3">Thunderbox &amp; Heatbox<br>auf Großbaustelle</div>
-        <div class="ph-size">700 × 460 px · landscape</div>
+      <div class="use-photo media-photo">
+        <img src="assets/baustellen-industrie.png" alt="Unidad sanitaria móvil en obra de construcción" loading="lazy">
       </div>
       <div class="use-body"><div class="use-title" data-k="u3t">Baustellen &amp; Industrie</div><p class="use-text" data-k="u3b">Langzeitmiete mit regelmäßiger Wartung für Großprojekte. Normkonforme Sanitärinfrastruktur für Arbeitskräfte.</p></div>
     </div>
     <div class="use">
-      <div class="use-photo">
-        <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><circle cx="14" cy="14" r="11" stroke="#b19ff4" stroke-width="0.9" fill="none"/><line x1="14" y1="8" x2="14" y2="14" stroke="#b19ff4" stroke-width="1.4"/><circle cx="14" cy="18" r="1.5" fill="#b19ff4"/></svg>
-        <div class="ph-label" data-k="ph_u4">Washboxen im Hilfscamp<br>Moldova oder Notfalleinsatz</div>
-        <div class="ph-size">700 × 460 px · landscape</div>
+      <div class="use-photo media-photo">
+        <img src="assets/humanitaerer-einsatz-notfaelle.png" alt="Washbox en instalación de emergencia humanitaria" loading="lazy">
       </div>
       <div class="use-body"><div class="use-title" data-k="u4t">Humanitärer Einsatz &amp; Notfälle</div><p class="use-text" data-k="u4b">Innerhalb von 48h lieferbar. Eingesetzt in Moldawien und bei stern TV. Verlässlichkeit unter extremen Bedingungen.</p></div>
     </div>
